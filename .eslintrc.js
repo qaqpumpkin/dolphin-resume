@@ -39,6 +39,7 @@ module.exports = {
     'react/no-unsafe': 'off',
     '@typescript-eslint/no-invalid-this': 'off',
     'react/jsx-key': 0,
+    '@typescript-eslint/no-var-requires': 'off', // 关闭require检查
     'no-undef': 0,
   },
 };
