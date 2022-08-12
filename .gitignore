@@ -3,5 +3,6 @@ node_modules
 .templaterc.js
 template
 dist
+yarn-error.log
 # mac自动生成的文件
 .DS_Store
