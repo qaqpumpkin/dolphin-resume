@@ -3,6 +3,9 @@ import Avatar from './components/Avatar';
 import BaseInfo from './components/BaseInfo';
 import './index.less';
 import Skill from './components/Skill';
+import Education from './components/Education';
+import Job from './components/Job';
+import Project from './components/Project';
 
 function BaseTemplate() {
   return (
@@ -16,7 +19,10 @@ function BaseTemplate() {
         </div>
       </div>
       <div styleName="resumeData">
+        <Education />
         <Skill />
+        <Job />
+        <Project />
       </div>
     </div>
   );

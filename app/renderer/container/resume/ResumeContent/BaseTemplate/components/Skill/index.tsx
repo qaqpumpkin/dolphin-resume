@@ -6,15 +6,14 @@ function Skill() {
     <div styleName="content">
       <p styleName="label">技能证书 Skill</p>
       <ul styleName="skill">
-        <li styleName="item">熟悉 Vue.js，了解数据双向绑定原理、阅读过 NextTick 源码</li>
-        <li styleName="item">熟悉 React，了解并使用 Hooks 特性，阅读过 redux 源码，开发 rc-redux-model 中间件</li>
-        <li styleName="item">阅读过 Antd 部分优秀组件源码，并参考借鉴，开发组内 UI 组件库</li>
-        <li styleName="item">了解 Vscode，开发组内项目辅助工具 vscode-beehive-extension 插件</li>
-        <li styleName="item">了解 Webpack 编译原理，了解 babel 转码原理，编写过 babel 插件</li>
-        <li styleName="item">了解 Electron，了解 Node.js 以及 Git 团队协作开发工具</li>
-        <li styleName="item">解设计模式，对于特定场景，能采用合适的设计模式进行解决</li>
-        <li styleName="item">了解 MYSQL，了解数据库优化常用方法</li>
-        <li styleName="item">了解基于微信公众号应用开发，采用 Taro 开发微信小程序，具备良好的网络基础知识</li>
+        <li styleName="item">熟悉HTML5与CSS3新特性，能够编写语义化HTML，模板化CSS</li>
+        <li styleName="item">熟练掌握JavaScript,能够使用原生JavaScript进行独立开发</li>
+        <li styleName="item">熟练使用JavaScript封装AJAX，动态构建页面，熟悉前端与后端的交互过程</li>
+        <li styleName="item">了解React组件通信，能够使用React编写组件</li>
+        <li styleName="item">熟练使用vue全家桶和git工具，熟练使用git做版本管理</li>
+        <li styleName="item">通过英语六级考试，能流畅阅读英文文档、书籍及其他资料</li>
+        <li styleName="item">自学了计算机网络、计算机组成原理、操作系统等基础课程</li>
+        <li styleName="item">有良好的代码风格与编码习惯，代码易维护且可读性高</li>
       </ul>
     </div>
   );

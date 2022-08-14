@@ -5,7 +5,6 @@ import BaseTemplate from './BaseTemplate';
 function ResumeContent() {
   return (
     <div>
-      内容展示区
       <BaseTemplate />
     </div>
   );
