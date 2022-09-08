@@ -10,56 +10,43 @@ declare namespace TSResume {
     /**
      * @description 姓名
      */
-    username: string;
-    /**
-     * @description 地区
-     */
-    area?: string;
-    /**
-     * @description 学校
-     */
-    school?: string;
-    /**
-     * @description 学年
-     */
-    onSchoolTime?: {
-      /**
-       * @description 入校时间
-       */
-      beginTime: string | number | null;
-      /**
-       * @description 离校时间
-       */
-      endTime: string | number | null;
-    };
-    /**
-     * @description 专业
-     */
-    major?: string;
-    /**
-     * @description 学位
-     */
-    degree?: string;
-  }
-
-  /**
-   * @description 联系方式
-   */
-  export interface Contact {
+    name: string;
     /**
      * @description 电话号码
      */
-    phone?: string;
+    phone: string;
     /**
      * @description 邮箱
      */
-    email?: string;
+    email: string;
+    /**
+     * @description 工作状态
+     */
+    workStatus: string;
+    /**
+     * @description 期望薪资
+     */
+    expectedSalary: string;
   }
 
+  export interface WorkContent {
+    /**
+     * @description 项目
+     */
+    project?: string;
+    /**
+     * @description 内容
+     */
+    content: string[];
+  }
   /**
    * @description 工作经验
    */
   export interface WorkExperience {
+    /**
+     * @description 公司
+     */
+    company?: string;
     /**
      * @description 部门
      */
@@ -69,10 +56,9 @@ declare namespace TSResume {
      */
     post?: string;
     /**
-     * @description 主要工作
+     * @description 工作内容
      */
-    content?: string;
-    parseContent?: string[];
+    workContent?: WorkContent[];
     /**
      * @description 开始时间
      */
@@ -81,14 +67,6 @@ declare namespace TSResume {
      * @description 结束时间
      */
     endTime?: number | string | undefined;
-    /**
-     * @description 额外补充内容
-     */
-    supplement?: string;
-    /**
-     * @description 最后修改时间
-     */
-    date?: number;
   }
 
   /**
@@ -98,16 +76,11 @@ declare namespace TSResume {
     /**
      * @description 项目名
      */
-    projectName?: string;
+    name?: string;
     /**
-     * @description 职位
+     * @description 项目内容
      */
-    post?: string;
-    /**
-     * @description 主要工作
-     */
-    content?: string;
-    parseContent?: string[];
+    content?: string[];
   }
 
   /**
@@ -115,9 +88,7 @@ declare namespace TSResume {
    */
   export interface IntactResume {
     base: Base;
-    skill: string;
-    skillList: string[];
-    contact: Contact;
+    skill: string[];
     workExperience?: WorkExperience[];
     personalProject?: personalProject[];
   }
