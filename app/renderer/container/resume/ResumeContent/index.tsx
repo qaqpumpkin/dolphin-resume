@@ -19,6 +19,7 @@ function ResumeContent() {
    */
   const onReceive = (e: any) => {
     Messager.receive(e, (data: any) => {
+      console.log('ata?.form_name', data.form_name);
       setShowFormModal(true);
       setFormName(data?.form_name);
     });
@@ -26,7 +27,7 @@ function ResumeContent() {
   return (
     <div>
       <BaseTemplate />
-      {showFormModal && <>{formName === RESUME_TOOLBAR_MAPS.baseInfo && <BaseInfo />}</>}
+      <BaseInfo isShow={formName === RESUME_TOOLBAR_MAPS.baseInfo && showFormModal} />
     </div>
   );
 }

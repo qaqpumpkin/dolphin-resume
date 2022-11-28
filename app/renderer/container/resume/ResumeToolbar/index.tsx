@@ -80,6 +80,7 @@ function ResumeToolbar() {
                   styleName="box"
                   key={addSlider.key}
                   onClick={() => {
+                    console.log('addSlider.key', addSlider.key);
                     Messager.send(MESSAGE_EVENT_NAME_MAPS.OPEN_FORM_MODAL, {
                       form_name: addSlider.key,
                     });
