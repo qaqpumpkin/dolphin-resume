@@ -10,8 +10,17 @@ const resumeModel: TSRcReduxModel.Props<TSResume.IntactResume> = {
       phone: '15521122505',
       email: '648102110@qq.com',
       workStatus: '离职',
-      expectedSalary: '18 - 24k',
+      expectedMinSalary: '18k',
+      expectedMaxSalary: '25k',
     },
+    education: [
+      {
+        school: '华南理工大学',
+        major: '材料科学与工程',
+        degree: '本科',
+        educationTime: ['2016-09-01', '2020-07-01'],
+      },
+    ],
     skill: [
       '熟悉HTML5与CSS3新特性，能够编写语义化HTML，模板化CSS',
       '熟练掌握JavaScript,能够使用原生JavaScript进行独立开发',

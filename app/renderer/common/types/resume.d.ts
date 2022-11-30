@@ -24,11 +24,35 @@ declare namespace TSResume {
      */
     workStatus: string;
     /**
-     * @description 期望薪资
+     * @description 期望薪资(最小)
      */
-    expectedSalary: string;
+    expectedMinSalary: string;
+    /**
+     * @description 期望薪资(最高)
+     */
+    expectedMaxSalary: string;
   }
-
+  /**
+   * @description 教育经历
+   */
+  export interface Education {
+    /**
+     * @description 学校名称
+     */
+    school: string;
+    /**
+     * @description 专业
+     */
+    major: string;
+    /**
+     * @description 学历
+     */
+    degree: string;
+    /**
+     * @description 教育时间
+     */
+    educationTime: string[];
+  }
   export interface WorkContent {
     /**
      * @description 项目
@@ -89,6 +113,7 @@ declare namespace TSResume {
   export interface IntactResume {
     base: Base;
     skill: string[];
+    education: Education[];
     workExperience?: WorkExperience[];
     personalProject?: personalProject[];
   }
