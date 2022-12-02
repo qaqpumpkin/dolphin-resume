@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux';
 import { Modal, Form, Input, message, DatePicker } from 'antd';
 import '../modal.less';
 import moment from 'moment';
-import customParseFormat from 'dayjs/plugin/customParseFormat';
+import { Col, Row } from 'antd';
+import MyEditor from '@src/container/components/MyEditor';
 
 interface BaseInfoProps {
   onClose: () => void;
@@ -31,6 +32,9 @@ function BaseInfo(props: BaseInfoProps) {
       content: '编辑成功',
     });
   };
+  const onEditorChange = (value: string) => {
+    console.log('value', value);
+  };
   const searchBarProps = {
     open: true,
     onOk: handleOk,
@@ -41,22 +45,39 @@ function BaseInfo(props: BaseInfoProps) {
   return (
     <>
       {contextHolder}
-      <Modal title="工作经历" {...searchBarProps} style={{ borderRadius: '10px' }}>
-        <Form name="basic" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }} onFinish={onFinish} autoComplete="off">
+      <Modal title="工作经历" {...searchBarProps} style={{ borderRadius: '10px' }} width={600}>
+        <Form name="basic" labelCol={{ span: 6 }} wrapperCol={{ span: 14 }} onFinish={onFinish} autoComplete="off">
           {WorkExperience.map((item, index) => {
             return (
-              <div key={index}>
-                <Form.Item label="公司" name="company" rules={[rules]}>
-                  <Input defaultValue={item.company} />
-                </Form.Item>
-                <Form.Item label="部门" name="department" rules={[rules]}>
-                  <Input defaultValue={item.department} />
-                </Form.Item>
-                <Form.Item label="职位" name="post" rules={[rules]}>
-                  <Input defaultValue={item.post} />
-                </Form.Item>
-                <Form.Item label="在职时间" name="workStatus" rules={[rules]}>
-                  <RangePicker defaultValue={[moment(item.beginTime, dateFormat), moment(item.endTime, dateFormat)]} />
+              <div styleName="dash-box" key={index}>
+                <Row>
+                  <Col span={12}>
+                    <Form.Item label="公司" name="company" rules={[rules]}>
+                      <Input defaultValue={item.company} />
+                    </Form.Item>
+                  </Col>
+                  <Col span={12}>
+                    <Form.Item label="部门" name="department" rules={[rules]}>
+                      <Input defaultValue={item.department} />
+                    </Form.Item>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span={12}>
+                    <Form.Item label="职位" name="post" rules={[rules]}>
+                      <Input defaultValue={item.post} />
+                    </Form.Item>
+                  </Col>
+                  <Col span={12}>
+                    <Form.Item label="在职时间" name="workStatus" rules={[rules]}>
+                      <RangePicker
+                        defaultValue={[moment(item.beginTime, dateFormat), moment(item.endTime, dateFormat)]}
+                      />
+                    </Form.Item>
+                  </Col>
+                </Row>
+                <Form.Item label="职位" name="post" rules={[rules]} labelCol={{ span: 3 }} wrapperCol={{ span: 19 }}>
+                  <MyEditor editorHtml={item.workContent} onEditorChange={onEditorChange} />
                 </Form.Item>
               </div>
             );

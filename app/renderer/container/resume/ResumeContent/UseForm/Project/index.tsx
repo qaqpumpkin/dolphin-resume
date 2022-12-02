@@ -3,20 +3,16 @@ import { useSelector } from 'react-redux';
 import { Modal, Form, Input, message, DatePicker } from 'antd';
 import '../modal.less';
 import MyEditor from '../../../../components/MyEditor';
-import moment from 'moment';
 
-interface BaseInfoProps {
+interface ProjectProps {
   onClose: () => void;
 }
 
-const { RangePicker } = DatePicker;
-const dateFormat = 'YYYY-MM-DD';
-
-function BaseInfo(props: BaseInfoProps) {
+function Project(props: ProjectProps) {
   const [messageApi, contextHolder] = message.useMessage();
   const rules = { required: true, message: '请输入' };
   const { onClose } = props;
-  const WorkExperience: TSResume.WorkExperience[] = useSelector((state: any) => state.resumeModel.workExperience);
+  const personalProject: TSResume.PersonalProject = useSelector((state: any) => state.resumeModel.personalProject);
   const handleOk = () => {
     onClose();
   };
@@ -31,6 +27,9 @@ function BaseInfo(props: BaseInfoProps) {
       content: '编辑成功',
     });
   };
+  const onEditorChange = (value: string) => {
+    console.log(value);
+  };
   const searchBarProps = {
     open: true,
     onOk: handleOk,
@@ -41,33 +40,15 @@ function BaseInfo(props: BaseInfoProps) {
   return (
     <>
       {contextHolder}
-      <Modal title="工作经历" {...searchBarProps} style={{ borderRadius: '10px' }} width={800}>
+      <Modal title="个人项目" {...searchBarProps} style={{ borderRadius: '10px' }} width={800}>
         <Form name="basic" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }} onFinish={onFinish} autoComplete="off">
-          {WorkExperience.map((item, index) => {
-            return (
-              <div key={index}>
-                <Form.Item label="公司" name="company" rules={[rules]}>
-                  <Input defaultValue={item.company} />
-                </Form.Item>
-                <Form.Item label="部门" name="department" rules={[rules]}>
-                  <Input defaultValue={item.department} />
-                </Form.Item>
-                <Form.Item label="职位" name="post" rules={[rules]}>
-                  <Input defaultValue={item.post} />
-                </Form.Item>
-                <Form.Item label="在职时间" name="workStatus" rules={[rules]}>
-                  <RangePicker defaultValue={[moment(item.beginTime, dateFormat), moment(item.endTime, dateFormat)]} />
-                </Form.Item>
-                <Form.Item label="工作项目" name="workStatus" rules={[rules]}>
-                  <MyEditor />
-                </Form.Item>
-              </div>
-            );
-          })}
+          <Form.Item label="个人项目" name="workStatus" rules={[rules]}>
+            <MyEditor editorHtml={personalProject.content} onEditorChange={onEditorChange} />
+          </Form.Item>
         </Form>
       </Modal>
     </>
   );
 }
 
-export default BaseInfo;
+export default Project;

@@ -4,7 +4,7 @@ import './index.less';
 function Skill() {
   return (
     <div styleName="content">
-      <p styleName="label">技能证书 Skill</p>
+      <p styleName="label">专业技能</p>
       <ul styleName="skill">
         <li styleName="item">熟悉HTML5与CSS3新特性，能够编写语义化HTML，模板化CSS</li>
         <li styleName="item">熟练掌握JavaScript,能够使用原生JavaScript进行独立开发</li>

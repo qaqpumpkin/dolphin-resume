@@ -2,10 +2,41 @@
   .ant-modal-content {
     border-radius: 10px;
   }
+  .ant-modal-body {
+    height: 500px;
+    background-color: #fff;
+    overflow: auto;
+    scrollbar-width: thin;
+    border-radius: 10px;
+  }
   .ant-modal-close {
     border-radius: 10px;
   }
-  .ant-modal-header {
-    border-radius: 10px;
+  .ant-modal-footer {
+    position: absolute;
+    width: 100%;
+    right: 0;
+    bottom: 0;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: #fff;
   }
+  .ant-modal-header {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+}
+
+.content {
+  display: flex;
+  align-items: center;
+}
+.edit-btn {
+  margin-right: 20px;
+}
+.dash-box {
+  width: 400px;
+  padding: 20px 0;
+  border: 1px dashed #e8e8e8;
+  margin-right: 20px;
 }

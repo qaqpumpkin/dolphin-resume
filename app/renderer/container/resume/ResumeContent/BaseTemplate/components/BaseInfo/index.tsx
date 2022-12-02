@@ -1,19 +1,26 @@
 import React from 'react';
 import './index.less';
+import { useSelector } from 'react-redux';
 
 function BaseInfo() {
+  const baseInfo: TSResume.Base = useSelector((state: any) => state.resumeModel.base);
+  const { name, phone, email, workStatus, expectedMinSalary, expectedMaxSalary } = baseInfo;
   return (
     <div styleName="baseInfo">
       <div styleName="name">
         <h2>
-          <strong>陈南颖</strong>
+          <strong>{name}</strong>
         </h2>
       </div>
       <div styleName="contact">
-        <p>15521122505 | 648102110@qq.com</p>
+        <p>
+          {phone} | {email}
+        </p>
       </div>
       <div styleName="intention">
-        <p>离职 | 18 - 24k</p>
+        <p>
+          {workStatus} | {expectedMinSalary} - {expectedMaxSalary}k
+        </p>
       </div>
     </div>
   );

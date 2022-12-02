@@ -53,15 +53,11 @@ declare namespace TSResume {
      */
     educationTime: string[];
   }
-  export interface WorkContent {
-    /**
-     * @description 项目
-     */
-    project?: string;
-    /**
-     * @description 内容
-     */
-    content: string[];
+  /**
+   * @description 个人技能
+   */
+  export interface Skill {
+    content: string;
   }
   /**
    * @description 工作经验
@@ -82,7 +78,7 @@ declare namespace TSResume {
     /**
      * @description 工作内容
      */
-    workContent?: WorkContent[];
+    workContent: string;
     /**
      * @description 开始时间
      */
@@ -96,15 +92,11 @@ declare namespace TSResume {
   /**
    * @description 个人项目
    */
-  export interface personalProject {
-    /**
-     * @description 项目名
-     */
-    name?: string;
+  export interface PersonalProject {
     /**
      * @description 项目内容
      */
-    content?: string[];
+    content: string;
   }
 
   /**
@@ -112,10 +104,10 @@ declare namespace TSResume {
    */
   export interface IntactResume {
     base: Base;
-    skill: string[];
+    skill: Skill;
     education: Education[];
     workExperience?: WorkExperience[];
-    personalProject?: personalProject[];
+    personalProject?: PersonalProject;
   }
 
   /**
