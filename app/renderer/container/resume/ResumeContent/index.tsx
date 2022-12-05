@@ -23,7 +23,7 @@ function ResumeContent() {
    */
   const onReceive = (e: any) => {
     Messager.receive(e, (data: any) => {
-      console.log('ata?.form_name', data.form_name);
+      console.log('data?.form_name', data.form_name);
       setShowFormModal(true);
       setFormName(data?.form_name);
     });

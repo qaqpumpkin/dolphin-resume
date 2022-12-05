@@ -4,27 +4,24 @@ import { Editor, Toolbar } from '@wangeditor/editor-for-react';
 import { IDomEditor, IEditorConfig, IToolbarConfig } from '@wangeditor/editor';
 
 interface EditorProps {
-  editorHtml: string;
-  onEditorChange: (html: string) => void;
+  value?: string;
+  onChange?: (html: string) => void;
 }
 
 function MyEditor(props: EditorProps) {
   // editor 实例
   const [editor, setEditor] = useState<IDomEditor | null>(null); // TS 语法
-  const { editorHtml, onEditorChange } = props;
+  const { value, onChange } = props;
   // 编辑器内容
   const [html, setHtml] = useState('');
 
-  // 模拟 ajax 请求，异步设置 html
   useEffect(() => {
-    setTimeout(() => {
-      setHtml(editorHtml);
-    });
+    setHtml(value as string);
   }, []);
 
-  const onChange = (html: string) => {
+  const onEditorChange = (html: string) => {
     setHtml(html);
-    onEditorChange(html);
+    onChange!(html);
   };
   // 工具栏配置
   const toolbarConfig: Partial<IToolbarConfig> = {
@@ -76,7 +73,7 @@ function MyEditor(props: EditorProps) {
         defaultConfig={editorConfig}
         value={html}
         onCreated={setEditor}
-        onEditorChange={(editor: IDomEditor) => onChange(editor.getHtml())}
+        onChange={(editor: IDomEditor) => onEditorChange(editor.getHtml())}
         mode="default"
         style={{ height: '300px', overflowY: 'hidden' }}
       />

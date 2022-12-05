@@ -38,15 +38,14 @@ const resumeModel: TSRcReduxModel.Props<TSResume.IntactResume> = {
         company: '欢聚集团',
         department: '运维中心',
         post: '前端开发工程师',
-        workContent: `<h3>运维平台</h3>
+        workContent: `<h4>运维平台</h4>
                       <ul>
                         <li>实现基本功能需求</li>
                         <li>对数据，流程进行可视化</li>
                         <li>针对项目大量封装工具函数、对Ant Design Vue、G6组件库进行二次封装</li>
                         <li>引入微前端框架icestark，基座使用Vue2，子应用使用Vue3 + Typescript + Pinia进行开发</li>
                       </ul>`,
-        beginTime: '2021.08',
-        endTime: '2022.07',
+        workTime: ['2021-08-01', '2022-7-15'],
       },
     ],
     personalProject: {

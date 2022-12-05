@@ -80,13 +80,9 @@ declare namespace TSResume {
      */
     workContent: string;
     /**
-     * @description 开始时间
+     * @description 工作时间
      */
-    beginTime?: number | string | undefined;
-    /**
-     * @description 结束时间
-     */
-    endTime?: number | string | undefined;
+    workTime: string[];
   }
 
   /**

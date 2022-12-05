@@ -4,7 +4,7 @@ import BaseInfo from './components/BaseInfo';
 import './index.less';
 import Skill from './components/Skill';
 import Education from './components/Education';
-import Job from './components/Job';
+import WorkExperience from './components/WorkExperience';
 import Project from './components/Project';
 import { useSelector } from 'react-redux';
 import { RESUME_TOOLBAR_MAPS } from '@common/constants/resume';
@@ -12,7 +12,7 @@ import { RESUME_TOOLBAR_MAPS } from '@common/constants/resume';
 function BaseTemplate() {
   const resumeToolKeys: string[] = useSelector((state: any) => state.templateModel.resumeToolbarKeys);
   return (
-    <div styleName="resume">
+    <div styleName="resume" id="pdf">
       <div styleName="title">
         <div styleName="baseInfo">
           <BaseInfo />
@@ -24,7 +24,7 @@ function BaseTemplate() {
       <div styleName="resumeData">
         {resumeToolKeys.includes(RESUME_TOOLBAR_MAPS.education) && <Education />}
         {resumeToolKeys.includes(RESUME_TOOLBAR_MAPS.skill) && <Skill />}
-        {resumeToolKeys.includes(RESUME_TOOLBAR_MAPS.job) && <Job />}
+        {resumeToolKeys.includes(RESUME_TOOLBAR_MAPS.job) && <WorkExperience />}
         {resumeToolKeys.includes(RESUME_TOOLBAR_MAPS.project) && <Project />}
       </div>
     </div>

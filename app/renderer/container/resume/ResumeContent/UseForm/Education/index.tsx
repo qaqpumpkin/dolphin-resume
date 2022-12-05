@@ -20,21 +20,17 @@ function Education(props: EducationProps) {
   const { onClose } = props;
   const [form] = Form.useForm();
   const education: TSResume.Education[] = useSelector((state: any) => state.resumeModel.education);
-  console.log('education', education);
   useEffect(() => {
     let isUnmounted = false;
-    console.log('isUnmounted', isUnmounted);
     if (!isUnmounted) {
-      education.map((item, index) => {
+      const formEducation = JSON.parse(JSON.stringify(education)).map((item: TSResume.Education) => {
         // @ts-ignore
         item.educationTime = [moment(item.educationTime[0], dateFormat), moment(item.educationTime[1], dateFormat)];
         return item;
       });
-      console.log('education', education);
-      form.setFieldsValue([...education]);
+      form.setFieldsValue([...formEducation]);
     }
     return () => {
-      console.log('unMount');
       isUnmounted = true;
     };
   }, []);
@@ -48,26 +44,21 @@ function Education(props: EducationProps) {
   };
 
   const onFinish = () => {
-    const { education } = form.getFieldsValue();
-    console.log('education', education);
-    updateResumeHook(
-      'education',
-      JSON.parse(JSON.stringify(education)).map((item) => {
+    const formEducation = JSON.parse(JSON.stringify(form.getFieldsValue().education)).map(
+      (item: TSResume.Education) => {
         item.educationTime = [
           moment(item.educationTime[0]).format(dateFormat),
           moment(item.educationTime[1]).format(dateFormat),
         ];
         return item;
-      })
+      }
     );
-    messageApi
-      .open({
-        type: 'success',
-        content: '编辑成功',
-      })
-      .then(() => {
-        onClose();
-      });
+    updateResumeHook('education', formEducation);
+    messageApi.open({
+      type: 'success',
+      content: '编辑成功',
+    });
+    onClose();
   };
   const searchBarProps = {
     open: true,
@@ -81,7 +72,17 @@ function Education(props: EducationProps) {
       {contextHolder}
       <Modal title="教育经历" {...searchBarProps} style={{ borderRadius: '10px' }} onOk={onFinish} width={600}>
         <Form form={form} labelCol={{ span: 6 }} wrapperCol={{ span: 14 }} autoComplete="off">
-          <Form.List name="education" initialValue={education}>
+          <Form.List
+            name="education"
+            initialValue={JSON.parse(JSON.stringify(education)).map((item: TSResume.Education) => {
+              // @ts-ignore
+              item.educationTime = [
+                moment(item.educationTime[0], dateFormat),
+                moment(item.educationTime[1], dateFormat),
+              ];
+              return item;
+            })}
+          >
             {(fields, { add, remove }) => (
               <>
                 {fields.map(({ key, name, ...resetField }, index, arr) => {

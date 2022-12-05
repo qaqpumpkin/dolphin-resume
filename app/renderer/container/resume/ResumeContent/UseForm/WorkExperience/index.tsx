@@ -1,23 +1,41 @@
-import React, { CSSProperties, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Modal, Form, Input, message, DatePicker } from 'antd';
+import { Modal, Form, Input, message, DatePicker, Button, Col, Row } from 'antd';
+import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 import '../modal.less';
 import moment from 'moment';
-import { Col, Row } from 'antd';
+import useUpdateResumeHook from '@src/container/resume/ResumeContent/useUpdateResumeHook';
 import MyEditor from '@src/container/components/MyEditor';
 
-interface BaseInfoProps {
+interface WorkTimeProps {
   onClose: () => void;
 }
 
 const { RangePicker } = DatePicker;
 const dateFormat = 'YYYY-MM-DD';
 
-function BaseInfo(props: BaseInfoProps) {
+function WorkExperience(props: WorkTimeProps) {
   const [messageApi, contextHolder] = message.useMessage();
+  const updateResumeHook = useUpdateResumeHook();
   const rules = { required: true, message: '请输入' };
   const { onClose } = props;
-  const WorkExperience: TSResume.WorkExperience[] = useSelector((state: any) => state.resumeModel.workExperience);
+  const [form] = Form.useForm();
+  const workExperience: TSResume.WorkExperience[] = useSelector((state: any) => state.resumeModel.workExperience);
+  useEffect(() => {
+    let isUnmounted = false;
+    if (!isUnmounted) {
+      const formWorkExperience = JSON.parse(JSON.stringify(workExperience)).map((item: TSResume.WorkExperience) => {
+        // @ts-ignore
+        item.workTime = [moment(item.workTime[0], dateFormat), moment(item.workTime[1], dateFormat)];
+        return item;
+      });
+      form.setFieldsValue([...formWorkExperience]);
+    }
+    return () => {
+      isUnmounted = true;
+    };
+  }, []);
+
   const handleOk = () => {
     onClose();
   };
@@ -27,13 +45,18 @@ function BaseInfo(props: BaseInfoProps) {
   };
 
   const onFinish = () => {
+    const formWorkExperience = JSON.parse(JSON.stringify(form.getFieldsValue().workExperience)).map(
+      (item: TSResume.WorkExperience) => {
+        item.workTime = [moment(item.workTime[0]).format(dateFormat), moment(item.workTime[1]).format(dateFormat)];
+        return item;
+      }
+    );
+    updateResumeHook('workExperience', formWorkExperience);
     messageApi.open({
       type: 'success',
       content: '编辑成功',
     });
-  };
-  const onEditorChange = (value: string) => {
-    console.log('value', value);
+    onClose();
   };
   const searchBarProps = {
     open: true,
@@ -45,47 +68,84 @@ function BaseInfo(props: BaseInfoProps) {
   return (
     <>
       {contextHolder}
-      <Modal title="工作经历" {...searchBarProps} style={{ borderRadius: '10px' }} width={600}>
-        <Form name="basic" labelCol={{ span: 6 }} wrapperCol={{ span: 14 }} onFinish={onFinish} autoComplete="off">
-          {WorkExperience.map((item, index) => {
-            return (
-              <div styleName="dash-box" key={index}>
-                <Row>
-                  <Col span={12}>
-                    <Form.Item label="公司" name="company" rules={[rules]}>
-                      <Input defaultValue={item.company} />
-                    </Form.Item>
-                  </Col>
-                  <Col span={12}>
-                    <Form.Item label="部门" name="department" rules={[rules]}>
-                      <Input defaultValue={item.department} />
-                    </Form.Item>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col span={12}>
-                    <Form.Item label="职位" name="post" rules={[rules]}>
-                      <Input defaultValue={item.post} />
-                    </Form.Item>
-                  </Col>
-                  <Col span={12}>
-                    <Form.Item label="在职时间" name="workStatus" rules={[rules]}>
-                      <RangePicker
-                        defaultValue={[moment(item.beginTime, dateFormat), moment(item.endTime, dateFormat)]}
+      <Modal title="工作经历" {...searchBarProps} style={{ borderRadius: '10px' }} onOk={onFinish} width={800}>
+        <Form form={form} labelCol={{ span: 6 }} wrapperCol={{ span: 18 }} autoComplete="off">
+          <Form.List
+            name="workExperience"
+            initialValue={JSON.parse(JSON.stringify(workExperience)).map((item: TSResume.WorkExperience) => {
+              // @ts-ignore
+              item.workTime = [moment(item.workTime[0], dateFormat), moment(item.workTime[1], dateFormat)];
+              return item;
+            })}
+          >
+            {(fields, { add, remove }) => (
+              <>
+                {fields.map(({ key, name, ...resetField }, index, arr) => {
+                  return (
+                    <div styleName="content" key={index}>
+                      <div styleName="editor-box">
+                        <Row>
+                          <Col span={12}>
+                            <Form.Item label="公司" name={[name, 'company']} rules={[rules]}>
+                              <Input />
+                            </Form.Item>
+                          </Col>
+                          <Col span={12}>
+                            <Form.Item label="部门" name={[name, 'department']} rules={[rules]}>
+                              <Input />
+                            </Form.Item>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col span={12}>
+                            <Form.Item label="职位" name={[name, 'post']} rules={[rules]}>
+                              <Input />
+                            </Form.Item>
+                          </Col>
+                          <Col span={12}>
+                            <Form.Item label="在职时间" name={[name, 'workTime']} rules={[rules]}>
+                              <RangePicker format="YYYY-MM-DD" />
+                            </Form.Item>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Form.Item
+                            label="工作内容"
+                            name={[name, 'workContent']}
+                            labelCol={{ span: 4 }}
+                            wrapperCol={{ span: 20 }}
+                            rules={[rules]}
+                          >
+                            <MyEditor />
+                          </Form.Item>
+                        </Row>
+                      </div>
+                      <Button
+                        styleName="edit-btn"
+                        type="primary"
+                        shape="circle"
+                        icon={<PlusOutlined />}
+                        onClick={() => add()}
                       />
-                    </Form.Item>
-                  </Col>
-                </Row>
-                <Form.Item label="职位" name="post" rules={[rules]} labelCol={{ span: 3 }} wrapperCol={{ span: 19 }}>
-                  <MyEditor editorHtml={item.workContent} onEditorChange={onEditorChange} />
-                </Form.Item>
-              </div>
-            );
-          })}
+                      {index !== 0 && (
+                        <Button
+                          styleName="edit-btn"
+                          danger
+                          shape="circle"
+                          icon={<DeleteOutlined />}
+                          onClick={() => remove(name)}
+                        />
+                      )}
+                    </div>
+                  );
+                })}
+              </>
+            )}
+          </Form.List>
         </Form>
       </Modal>
     </>
   );
 }
 
-export default BaseInfo;
+export default WorkExperience;

@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 
 function Education() {
   const education: TSResume.Education[] = useSelector((state: any) => state.resumeModel.education);
-  console.log('education', education);
   return (
     <div styleName="content">
       <p styleName="label">教育经历</p>

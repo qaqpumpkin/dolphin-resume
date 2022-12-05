@@ -47,13 +47,12 @@ function useUpdateBaseInfoHook() {
 function useUpdateEducationHook() {
   const dispatch = useDispatch();
 
-  return <T>(stateValue: TSResume.Education[]) => {
-    console.log('stateValue', stateValue);
+  return <T>(stateValue: T) => {
     dispatch({
       type: 'resumeModel/setStore',
       payload: {
         key: 'education',
-        values: [...stateValue],
+        values: stateValue,
       },
     });
   };
@@ -85,17 +84,13 @@ function useUpdateSkillHook() {
  */
 function useUpdatePersonalProjectHook() {
   const dispatch = useDispatch();
-  const personalProject: TSResume.PersonalProject = useSelector((state: any) => state.resumeModel.personalProject);
 
   return <T>(stateValue: T) => {
     dispatch({
       type: 'resumeModel/setStore',
       payload: {
         key: 'personalProject',
-        values: {
-          ...personalProject,
-          ...stateValue,
-        },
+        values: stateValue,
       },
     });
   };
@@ -113,10 +108,7 @@ function useUpdateWorkExperienceHook() {
       type: 'resumeModel/setStore',
       payload: {
         key: 'workExperience',
-        values: {
-          ...workExperience,
-          ...stateValue,
-        },
+        values: stateValue,
       },
     });
   };
