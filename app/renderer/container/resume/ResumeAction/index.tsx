@@ -28,7 +28,6 @@ function ResumeAction() {
     toPrintPdf(`${base.name}+${base.phone}+${base.email}`);
     setShowModal(false);
     readAppConfigThemeFile().then((value: { [key: string]: any }) => {
-      console.log('value', value);
       if (value?.resumeSavePath) {
         saveResumeJson(value?.resumeSavePath);
       } else {
@@ -45,15 +44,10 @@ function ResumeAction() {
   const saveResumeJson = (resumeSavePath: string) => {
     const date = intToDateString(new Date().valueOf(), '_');
     const prefix = `${date}_${base?.name}_${base?.phone}_${base?.email}_${createUID()}.json`;
-    console.log('prefix', prefix);
-    console.log('resumeSavePath', resumeSavePath);
-    console.log('resume', resume);
     // 如果路径中不存在 resumeCache 文件夹，则默认创建此文件夹
     if (resumeSavePath && resumeSavePath.search('resumeCache') > -1) {
-      console.log('have resumeCache');
       fileAction?.write(`${resumeSavePath}/${prefix}`, resume, 'utf8');
     } else {
-      console.log('not have resumeCache');
       fileAction
         ?.mkdirDir(`${resumeSavePath}/resumeCache`)
         .then((path) => {

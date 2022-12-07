@@ -1,6 +1,6 @@
 // @ts-ignore
 import _ from 'lodash';
-import { MyBrowserWindow } from './electron';
+import { MyBrowserWindow, isDev } from './electron';
 import { MenuItemConstructorOptions, shell, app, MenuItem, BrowserWindow } from 'electron';
 
 const customMenu: (MenuItemConstructorOptions | MenuItem)[] = [
@@ -81,22 +81,6 @@ const customMenu: (MenuItemConstructorOptions | MenuItem)[] = [
           }
         },
       },
-      {
-        label: '切换开发者工具',
-        role: 'toggleDevTools',
-        accelerator: (() => {
-          if (process.platform === 'darwin') {
-            return 'Alt+Command+I';
-          } else {
-            return 'Ctrl+Shift+I';
-          }
-        })(),
-        click: (item, focusedWindow) => {
-          if (focusedWindow) {
-            focusedWindow.webContents.openDevTools();
-          }
-        },
-      },
     ],
   },
   {
@@ -125,7 +109,7 @@ const customMenu: (MenuItemConstructorOptions | MenuItem)[] = [
         label: '修改简历数据储存路径',
         click: () => {
           const wins: MyBrowserWindow[] = BrowserWindow.getAllWindows();
-          const currentWindow = _.find(wins, (w) => w.uid === 'settingWindow');
+          const currentWindow = _.find(wins, (w: MyBrowserWindow) => w.uid === 'settingWindow');
           if (currentWindow) {
             if (!currentWindow.isVisible()) {
               currentWindow.show();
@@ -185,6 +169,25 @@ if (process.platform === 'darwin') {
         },
       },
     ],
+  });
+}
+
+if (isDev()) {
+  (customMenu[2]?.submenu as any).push({
+    label: '切换开发者工具',
+    role: 'toggleDevTools',
+    accelerator: (() => {
+      if (process.platform === 'darwin') {
+        return 'Alt+Command+I';
+      } else {
+        return 'Ctrl+Shift+I';
+      }
+    })(),
+    click: (item: any, focusedWindow: MyBrowserWindow) => {
+      if (focusedWindow) {
+        focusedWindow.webContents.openDevTools();
+      }
+    },
   });
 }
 

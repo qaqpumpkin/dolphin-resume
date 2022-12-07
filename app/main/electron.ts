@@ -18,7 +18,7 @@ ipcMain.on('open-save-resume-path', (event, arg) => {
     });
 });
 
-function isDev() {
+export function isDev() {
   return process.env.NODE_ENV === 'development';
 }
 
@@ -31,8 +31,9 @@ function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
+    resizable: isDev(),
     webPreferences: {
-      devTools: true,
+      devTools: isDev(),
       nodeIntegration: true, // 注入node模块
     },
   });
@@ -42,9 +43,9 @@ function createWindow() {
     height: 240,
     show: false,
     frame: false,
-    resizable: false,
+    resizable: isDev(),
     webPreferences: {
-      devTools: true,
+      devTools: isDev(),
       nodeIntegration: true,
     },
   });

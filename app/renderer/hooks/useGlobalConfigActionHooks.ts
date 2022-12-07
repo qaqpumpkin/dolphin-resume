@@ -32,7 +32,6 @@ export function useUpdateGlobalConfigFile() {
             ...values,
             [`${updateKey}`]: updateValues,
           };
-          console.log('updateValues', updateValues);
           fileAction.canWrite(jsonPath).then(() => {
             fileAction.write(jsonPath, nextConfigContent, 'utf-8').then(() => {
               callback && callback();

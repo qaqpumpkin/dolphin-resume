@@ -50,8 +50,10 @@
     },
     "win": {
       "target": [
-        "zip"
-      ]
+        "zip",
+        "nsis"
+      ],
+      "icon": "assets/icon/dolphin.ico"
     }
   },
   "dependencies": {

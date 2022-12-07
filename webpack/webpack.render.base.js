@@ -32,7 +32,6 @@ module.exports = {
         use: {
           loader: 'babel-loader',
         },
-        // loader: 'HappyPack/loader?id=visResumeMookHappyPack',
       },
       {
         test: /\.(jpg|png|jpeg|gif)$/,
