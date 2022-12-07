@@ -4,8 +4,9 @@ const fileAction = {
   read: (path: string, encoding: BufferEncoding): Promise<string> => {
     return fsPromiseAPIs.readFile(path, { encoding: encoding || 'utf8' });
   },
-  write: (path: string, content: string, encoding: BufferEncoding): Promise<void> => {
-    return fsPromiseAPIs.writeFile(path, content, { encoding: encoding || 'utf8' });
+  write: (path: string, content: any, encoding: BufferEncoding): Promise<void> => {
+    let updateContent = typeof content === 'string' ? content : JSON.stringify(content);
+    return fsPromiseAPIs.writeFile(path, updateContent, { encoding: encoding || 'utf8' });
   },
   rename: (oldPath: string, newPath: string) => {
     return fsPromiseAPIs.rename(oldPath, newPath);
@@ -21,6 +22,9 @@ const fileAction = {
   },
   canRead: (path: string) => {
     return fsPromiseAPIs.access(path, fs.constants.R_OK);
+  },
+  mkdirDir: (path: string): Promise<string | undefined> => {
+    return fsPromiseAPIs.mkdir(path, { recursive: true });
   },
 };
 

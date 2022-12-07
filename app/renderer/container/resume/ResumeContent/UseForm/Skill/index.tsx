@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Modal, Form, Input, message, DatePicker } from 'antd';
 import '../modal.less';
-import MyEditor from '../../../../components/MyEditor';
+import MyEditor from '@src/container/components/MyEditor';
 import useUpdateResumeHook from '@src/container/resume/ResumeContent/useUpdateResumeHook';
 
 interface SkillProps {

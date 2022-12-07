@@ -4,5 +4,7 @@ node_modules
 template
 dist
 yarn-error.log
+package
 # mac自动生成的文件
 .DS_Store
+assets/*/.DS_Store
