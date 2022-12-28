@@ -25,7 +25,7 @@ function ResumeAction() {
 
   // 导出PDF
   const exportPdf = () => {
-    toPrintPdf(`${base.name}+${base.phone}+${base.email}`);
+    toPrintPdf(`${base.name} ${base.phone} ${base.email}`);
     setShowModal(false);
     readAppConfigThemeFile().then((value: { [key: string]: any }) => {
       if (value?.resumeSavePath) {

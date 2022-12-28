@@ -1,6 +1,6 @@
 {
   "name": "dolphin-resume",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "pumpkin",
   "description": "简历平台",
   "main": "./dist/electron.js",
